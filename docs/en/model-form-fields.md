@@ -175,7 +175,15 @@ public function city(Request $request)
     return ChinaArea::city()->where('parent_id', $provinceId)->get(['id', DB::raw('name as text')]);
 }
 ```
+For linking multipe fields to fill options on change, use `loads($fields = [], $sourceUrls = [])` function which accepts array of fields and array of api source URLs, e.g,
 
+```php
+$form->select('province')->options(...)->loads(['city', 'city_parks'], ['/api/city', '/api/city_parks']);
+
+$form->select('city');
+
+$form->select('city_parks');
+```
 ## Multiple select
 ```php
 $form->multipleSelect($column[, $label])->options([1 => 'foo', 2 => 'bar', 'val' => 'Option name']);
